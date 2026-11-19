@@ -3,100 +3,120 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Mochi Browser is a personalizable desktop browser with an offline eco city game, local file browsing and multiple languages.">
+<meta name="description" content="Mochi Browser is a colorful, personalizable desktop browser with an offline eco city game, local file browsing and three languages.">
 <meta property="og:title" content="Mochi Browser">
 <meta property="og:description" content="Your browsing assistant, with an offline eco city game.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mochibrowser.github.io/">
 <title>Mochi Browser · Your browsing assistant</title>
 <style>
-  :root{--accent:#8ee3c4;--accent-2:#a8d8f0;--bg:#161c27;--panel:#1d2a3a;--panel-2:#243245;--text:#e6edf3;--muted:#9fb0c3;--line:#2e3d52}
+  :root{
+    --mint:#8ee3c4; --sky:#8fd3ff; --pink:#ff9fc2; --sun:#ffd166; --lilac:#c4b5ff; --peach:#ffb38a;
+    --bg:#131a26; --panel:#1b2636; --panel-2:#23324a; --text:#eef4fb; --muted:#a9bbd0; --line:#2d3f59;
+  }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:72px}
-  body{margin:0;font-family:"Segoe UI","Microsoft JhengHei","Yu Gothic UI",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{margin:0;font-family:"Segoe UI","Microsoft JhengHei","Yu Gothic UI",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
   a{color:inherit}
   code,pre{font-family:Consolas,"Courier New",monospace}
-  code{background:#0f1622;padding:2px 7px;border-radius:6px;font-size:.92em}
-  pre{background:#0f1622;padding:14px 16px;border-radius:12px;overflow:auto;border:1px solid var(--line)}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  code{background:#0c121c;padding:2px 8px;border-radius:7px;font-size:.92em;color:var(--mint)}
+  pre{background:#0c121c;padding:16px 18px;border-radius:14px;overflow:auto;border:1px solid var(--line);color:var(--text)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
-  nav{position:sticky;top:0;z-index:10;background:rgba(22,28,39,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
-  .brand{font-weight:800;font-size:18px;text-decoration:none;color:var(--accent)}
-  .links{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;align-items:center}
+  /* 導覽列 */
+  nav{position:sticky;top:0;z-index:20;background:rgba(19,26,38,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;height:66px}
+  .brand{font-weight:800;font-size:19px;text-decoration:none;background:linear-gradient(90deg,var(--mint),var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:15px}
   .links a{text-decoration:none;color:var(--muted)}
   .links a:hover{color:var(--text)}
-  .lang{display:flex;gap:6px}
-  .lang button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 12px;font-size:13px;cursor:pointer;font-family:inherit}
-  .lang button.on{border-color:var(--accent);color:var(--accent)}
+  .lang-select{appearance:none;-webkit-appearance:none;background:var(--panel-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238ee3c4' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:7px 36px 7px 16px;font-size:14px;font-family:inherit;cursor:pointer;color-scheme:dark}
+  .lang-select:hover{border-color:var(--mint)}
+  .lang-select:focus{outline:2px solid var(--mint);outline-offset:2px}
+  .lang-select option{background:var(--panel);color:var(--text)}
 
-  .hero{padding:64px 0 40px;text-align:center}
-  .tag{display:inline-block;padding:4px 14px;border-radius:999px;background:rgba(142,227,196,.14);color:var(--accent);font-size:14px;font-weight:600}
-  .hero h1{font-size:44px;line-height:1.25;margin:18px 0 14px}
-  .hero p.lead{color:var(--muted);max-width:640px;margin:0 auto;font-size:17px}
-  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
-  .btn{display:inline-block;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px}
-  .btn.primary{background:var(--accent);color:#0f1622}
-  .btn.ghost{border:1px solid var(--line);color:var(--text)}
+  /* 首屏 */
+  .hero{position:relative;padding:76px 0 70px;overflow:hidden;background:
+    radial-gradient(900px 500px at 10% -10%, rgba(142,227,196,.28), transparent 60%),
+    radial-gradient(800px 500px at 100% 0%, rgba(143,211,255,.22), transparent 60%),
+    radial-gradient(700px 420px at 50% 110%, rgba(255,159,194,.20), transparent 60%)}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .tag{display:inline-block;padding:6px 16px;border-radius:999px;background:linear-gradient(90deg,rgba(142,227,196,.2),rgba(143,211,255,.2));color:var(--mint);font-size:14px;font-weight:700;border:1px solid rgba(142,227,196,.35)}
+  .hero h1{font-size:50px;line-height:1.18;margin:20px 0 16px;font-weight:800}
+  .grad{background:linear-gradient(90deg,var(--mint),var(--sky),var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{color:var(--muted);font-size:18px;max-width:560px;margin:0}
+  .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:999px;text-decoration:none;font-weight:800;font-size:16px;border:2px solid transparent;transition:transform .15s ease,box-shadow .15s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(90deg,var(--mint),var(--sky));color:#0c1420;box-shadow:0 10px 30px rgba(142,227,196,.3)}
+  .btn.ghost{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.03)}
+  .robot-card{position:relative;background:linear-gradient(160deg,#243a57,#1b2636);border:1px solid var(--line);border-radius:28px;padding:34px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+  .robot-card .robot{width:230px;max-width:70%;margin:0 auto;display:block}
+  .robot-card .bubble{margin:14px auto 0;display:inline-block;background:var(--panel-2);border-radius:18px;padding:10px 18px;color:var(--muted);font-size:15px}
+  .dot{position:absolute;border-radius:50%;opacity:.9}
 
-  .mock{margin:44px auto 0;max-width:820px;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}
-  .mock-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#141b26;border-bottom:1px solid var(--line)}
-  .mock-bar i{width:11px;height:11px;border-radius:50%;background:#34445c;display:block}
-  .mock-bar .url{margin-left:12px;flex:1;background:#0f1622;border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:13px;color:var(--muted);text-align:left}
-  .mock-body{padding:34px 20px 46px;text-align:center}
-  .mock-body .robot{width:150px;margin:0 auto}
-  .mock-body h3{margin:12px 0 14px;font-size:22px}
-  .mock-search{max-width:460px;margin:0 auto;display:flex;gap:10px}
-  .mock-search div{flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;padding:10px 16px;text-align:left;color:var(--muted);font-size:14px}
-  .mock-search span{background:var(--accent);color:#0f1622;border-radius:999px;padding:10px 18px;font-weight:700;font-size:14px}
+  section{padding:88px 0}
+  .head{text-align:center;margin-bottom:44px}
+  .head h2{font-size:38px;margin:0 0 10px;font-weight:800}
+  .head p{color:var(--muted);margin:0;font-size:17px}
+  .kicker{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sun);margin-bottom:10px}
 
-  section{padding:64px 0}
-  section + section{border-top:1px solid var(--line)}
-  h2{font-size:30px;margin:0 0 8px}
-  .sub{color:var(--muted);margin:0 0 30px}
-
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
-  .card h3{margin:0 0 8px;font-size:17px;color:var(--accent)}
+  /* 功能卡片（每張不同色） */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px}
+  .card{border-radius:20px;padding:24px;border:1px solid var(--line);background:var(--panel);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--c)}
+  .card .ico{width:44px;height:44px;border-radius:14px;background:var(--c);opacity:.95;margin-bottom:14px;display:flex;align-items:center;justify-content:center;color:#0c1420;font-weight:900;font-size:18px}
+  .card h3{margin:0 0 8px;font-size:18px;color:var(--c)}
   .card p{margin:0;color:var(--muted);font-size:15px}
 
-  .game{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
-  .game ul{padding-left:20px;color:var(--muted)}
-  .game ul li{margin:8px 0}
-  .meter{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
-  .meter .row{margin:14px 0}
-  .meter .row small{color:var(--muted);display:flex;justify-content:space-between}
-  .bar{height:10px;background:#0f1622;border-radius:999px;overflow:hidden;margin-top:6px}
-  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:999px}
-  .note{color:var(--muted);font-size:13px;margin-top:12px}
+  /* 遊戲 */
+  .game{background:linear-gradient(135deg,rgba(142,227,196,.08),rgba(196,181,255,.08))}
+  .game .wrap{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  .game ul{padding-left:20px;color:var(--muted);font-size:16px}
+  .game ul li{margin:10px 0}
+  .meter{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:26px}
+  .meter .row{margin:18px 0}
+  .meter .row small{color:var(--muted);display:flex;justify-content:space-between;font-size:15px}
+  .bar{height:12px;background:#0c121c;border-radius:999px;overflow:hidden;margin-top:8px}
+  .bar i{display:block;height:100%;border-radius:999px}
+  .note{color:var(--muted);font-size:13px;margin-top:14px}
 
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-  .step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
-  .step .n{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#0f1622;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-  .step h3{margin:0 0 6px;font-size:17px}
-  .step p{margin:0;color:var(--muted);font-size:15px}
-  .req{margin-top:18px;color:var(--muted);font-size:14px}
+  /* 下載（大區塊） */
+  .download{background:radial-gradient(900px 480px at 50% 0%,rgba(255,209,102,.16),transparent 70%),radial-gradient(700px 420px at 90% 100%,rgba(255,159,194,.14),transparent 70%)}
+  .dl-hero{border-radius:30px;padding:48px 40px;text-align:center;background:linear-gradient(135deg,#243a57 0%,#1f3550 45%,#2b2f57 100%);border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.4)}
+  .dl-hero h2{font-size:44px;margin:8px 0 12px;font-weight:900}
+  .dl-hero .sub{color:var(--muted);font-size:18px;margin:0 0 26px}
+  .dl-big{display:inline-flex;align-items:center;gap:12px;padding:20px 44px;border-radius:999px;font-size:21px;font-weight:900;text-decoration:none;color:#0c1420;background:linear-gradient(90deg,var(--sun),var(--peach),var(--pink));box-shadow:0 14px 36px rgba(255,159,194,.35);transition:transform .15s ease}
+  .dl-big:hover{transform:translateY(-3px)}
+  .dl-meta{margin-top:18px;color:var(--muted);font-size:15px}
+  .sysreq{margin:30px auto 0;display:inline-block;padding:14px 26px;border-radius:16px;background:rgba(142,227,196,.12);border:1px solid rgba(142,227,196,.4);font-size:22px;font-weight:800;color:var(--mint)}
 
-  .guide{margin-top:34px;display:grid;gap:14px}
-  .guide .item{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
-  .guide h4{margin:0 0 6px;font-size:16px}
-  .guide p{margin:0;color:var(--muted);font-size:15px}
+  .guide-title{margin:64px 0 28px;text-align:center;font-size:32px;font-weight:800}
+  .timeline{display:grid;gap:18px;max-width:880px;margin:0 auto}
+  .tstep{display:grid;grid-template-columns:72px 1fr;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:24px 26px;position:relative}
+  .tstep .num{width:60px;height:60px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#0c1420;background:var(--c)}
+  .tstep h3{margin:4px 0 8px;font-size:21px;color:var(--c)}
+  .tstep p{margin:0 0 8px;color:var(--muted);font-size:16px}
+  .tstep ul{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:16px}
+  .tstep ul li{margin:6px 0}
+  .tip{margin-top:12px;padding:12px 16px;border-radius:14px;background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.35);color:#ffe8a3;font-size:15px}
 
-  .dl{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+  /* 常見問題 */
+  .faq{display:grid;gap:14px;max-width:880px;margin:0 auto}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px 22px}
+  summary{cursor:pointer;font-weight:800;font-size:17px}
+  details p{color:var(--muted);margin:12px 0 0;font-size:16px}
 
-  .faq{display:grid;gap:12px}
-  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
-  summary{cursor:pointer;font-weight:700;font-size:16px}
-  details p{color:var(--muted);margin:10px 0 0;font-size:15px}
+  footer{border-top:1px solid var(--line);padding:34px 0 44px;color:var(--muted);font-size:15px;background:#10161f}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 
-  footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:14px}
-  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-
-  @media (max-width:760px){
-    .hero h1{font-size:32px}
-    .game{grid-template-columns:1fr}
-    .links{gap:12px}
-    nav .wrap{height:auto;padding:12px 22px;flex-direction:column;align-items:flex-start}
+  @media (max-width:900px){
+    .hero .wrap,.game .wrap{grid-template-columns:1fr}
+    .hero h1{font-size:38px}
+    .head h2,.dl-hero h2{font-size:32px}
+    .dl-big{font-size:18px;padding:18px 32px}
+    .sysreq{font-size:19px}
+    nav .wrap{height:auto;padding:12px 24px;flex-direction:column;align-items:flex-start}
   }
 </style>
 </head>
@@ -108,81 +128,86 @@
     <div class="links">
       <a href="#features" data-i18n="nav_features">Features</a>
       <a href="#game" data-i18n="nav_game">Eco City</a>
-      <a href="#setup" data-i18n="nav_setup">Setup</a>
       <a href="#download" data-i18n="nav_download">Download</a>
+      <a href="#guide" data-i18n="nav_guide">Setup guide</a>
       <a href="#faq" data-i18n="nav_faq">FAQ</a>
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en">English</button>
-        <button type="button" data-lang="zh">繁體中文</button>
-        <button type="button" data-lang="ja">日本語</button>
-      </div>
+      <select class="lang-select" id="lang-select" aria-label="Language">
+        <option value="en">English</option>
+        <option value="zh">繁體中文</option>
+        <option value="ja">日本語</option>
+      </select>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <span class="tag" data-i18n="tag">Desktop browser for Windows</span>
-    <h1 data-i18n-html="hero_title">Your browsing assistant,<br>here to keep you company online.</h1>
-    <p class="lead" data-i18n="hero_lead">Mochi Browser is a personalizable desktop browser with dark mode, several search engines, local file browsing, and an eco city game you can play offline.</p>
-    <div class="cta">
-      <a class="btn primary" href="#download" data-i18n="btn_download">Download Mochi Browser</a>
-      <a class="btn ghost" href="#game" data-i18n="btn_game">Play the offline game</a>
+    <div>
+      <span class="tag" data-i18n="tag">Desktop browser for Windows</span>
+      <h1 data-i18n-html="hero_title">Your browsing assistant, <span class="grad">full of color.</span></h1>
+      <p class="lead" data-i18n="hero_lead">Mochi Browser is a personalizable desktop browser with dark mode, several search engines, local file browsing, and an eco city game you can play offline.</p>
+      <div class="cta">
+        <a class="btn primary" href="#download" data-i18n="btn_download">Download Mochi Browser</a>
+        <a class="btn ghost" href="#guide" data-i18n="btn_guide">Read the setup guide</a>
+      </div>
     </div>
 
-    <div class="mock" aria-hidden="true">
-      <div class="mock-bar"><i></i><i></i><i></i><div class="url">mochi://home</div></div>
-      <div class="mock-body">
-        <svg class="robot" viewBox="0 0 200 260" aria-label="Mochi">
-          <line x1="100" y1="40" x2="100" y2="20" stroke="#8ee3c4" stroke-width="5"/>
-          <circle cx="100" cy="16" r="7" fill="#ff8fab"/>
-          <path d="M84 214V240M116 214V240" stroke="#8ee3c4" stroke-width="22" stroke-linecap="round" fill="none"/>
-          <path d="M84 214V240M116 214V240" stroke="#fff" stroke-width="10" stroke-linecap="round" fill="none"/>
-          <ellipse cx="84" cy="248" rx="17" ry="9" fill="#fff" stroke="#8ee3c4" stroke-width="5"/>
-          <ellipse cx="116" cy="248" rx="17" ry="9" fill="#fff" stroke="#8ee3c4" stroke-width="5"/>
-          <path d="M64 170L34 200" stroke="#8ee3c4" stroke-width="22" stroke-linecap="round" fill="none"/>
-          <path d="M64 170L34 200" stroke="#fff" stroke-width="10" stroke-linecap="round" fill="none"/>
-          <circle cx="32" cy="206" r="10" fill="#fff" stroke="#8ee3c4" stroke-width="4"/>
-          <path d="M136 170L166 200" stroke="#8ee3c4" stroke-width="22" stroke-linecap="round" fill="none"/>
-          <path d="M136 170L166 200" stroke="#fff" stroke-width="10" stroke-linecap="round" fill="none"/>
-          <circle cx="168" cy="206" r="10" fill="#fff" stroke="#8ee3c4" stroke-width="4"/>
-          <rect x="60" y="160" width="80" height="62" rx="24" fill="#fff" stroke="#8ee3c4" stroke-width="6"/>
-          <circle cx="100" cy="188" r="8" fill="#8ee3c4"/>
-          <circle cx="100" cy="100" r="62" fill="#fff" stroke="#8ee3c4" stroke-width="6"/>
-          <circle cx="78" cy="96" r="11" fill="#2d3e50"/><circle cx="82" cy="92" r="3.5" fill="#fff"/>
-          <circle cx="122" cy="96" r="11" fill="#2d3e50"/><circle cx="126" cy="92" r="3.5" fill="#fff"/>
-          <circle cx="60" cy="118" r="9" fill="#ffd6e0"/><circle cx="140" cy="118" r="9" fill="#ffd6e0"/>
-          <path d="M86 126Q100 140 114 126" fill="none" stroke="#2d3e50" stroke-width="5" stroke-linecap="round"/>
-        </svg>
-        <h3 data-i18n="mock_greet">Hi, I'm Mochi, your assistant</h3>
-        <div class="mock-search"><div data-i18n="mock_placeholder">Search or enter a keyword</div><span data-i18n="mock_search">Search</span></div>
-      </div>
+    <div class="robot-card" aria-hidden="true">
+      <span class="dot" style="width:14px;height:14px;background:var(--pink);top:18px;left:22px"></span>
+      <span class="dot" style="width:10px;height:10px;background:var(--sun);top:60px;right:30px"></span>
+      <span class="dot" style="width:18px;height:18px;background:var(--sky);bottom:70px;left:34px"></span>
+      <svg class="robot" viewBox="0 0 200 260" aria-label="Mochi">
+        <line x1="100" y1="40" x2="100" y2="20" stroke="#8ee3c4" stroke-width="5"/>
+        <circle cx="100" cy="16" r="7" fill="#ff8fab"/>
+        <path d="M84 214V240M116 214V240" stroke="#8ee3c4" stroke-width="22" stroke-linecap="round" fill="none"/>
+        <path d="M84 214V240M116 214V240" stroke="#fff" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <ellipse cx="84" cy="248" rx="17" ry="9" fill="#fff" stroke="#8ee3c4" stroke-width="5"/>
+        <ellipse cx="116" cy="248" rx="17" ry="9" fill="#fff" stroke="#8ee3c4" stroke-width="5"/>
+        <path d="M64 170L34 200" stroke="#8ee3c4" stroke-width="22" stroke-linecap="round" fill="none"/>
+        <path d="M64 170L34 200" stroke="#fff" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <circle cx="32" cy="206" r="10" fill="#fff" stroke="#8ee3c4" stroke-width="4"/>
+        <path d="M136 170L166 200" stroke="#8ee3c4" stroke-width="22" stroke-linecap="round" fill="none"/>
+        <path d="M136 170L166 200" stroke="#fff" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <circle cx="168" cy="206" r="10" fill="#fff" stroke="#8ee3c4" stroke-width="4"/>
+        <rect x="60" y="160" width="80" height="62" rx="24" fill="#fff" stroke="#8ee3c4" stroke-width="6"/>
+        <circle cx="100" cy="188" r="8" fill="#8ee3c4"/>
+        <circle cx="100" cy="100" r="62" fill="#fff" stroke="#8ee3c4" stroke-width="6"/>
+        <circle cx="78" cy="96" r="11" fill="#2d3e50"/><circle cx="82" cy="92" r="3.5" fill="#fff"/>
+        <circle cx="122" cy="96" r="11" fill="#2d3e50"/><circle cx="126" cy="92" r="3.5" fill="#fff"/>
+        <circle cx="60" cy="118" r="9" fill="#ffd6e0"/><circle cx="140" cy="118" r="9" fill="#ffd6e0"/>
+        <path d="M86 126Q100 140 114 126" fill="none" stroke="#2d3e50" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <div class="bubble" data-i18n="bubble">Hi, I'm Mochi, your assistant!</div>
     </div>
   </div>
 </header>
 
 <section id="features">
   <div class="wrap">
-    <h2 data-i18n="feat_title">Designed for everyday browsing</h2>
-    <p class="sub" data-i18n="feat_sub">Adjust everything from the look to the search to fit your habits.</p>
+    <div class="head">
+      <span class="kicker" data-i18n="feat_kicker">Features</span>
+      <h2 data-i18n="feat_title">Designed for everyday browsing</h2>
+      <p data-i18n="feat_sub">Adjust everything from the look to the search to fit your habits.</p>
+    </div>
     <div class="grid">
-      <div class="card"><h3 data-i18n="f1_t">Dark and light mode</h3><p data-i18n="f1_p">Pick your own accent color. The interface, home page and error pages change together, and tabs can move to the left side.</p></div>
-      <div class="card"><h3 data-i18n="f2_t">Choose your search engine</h3><p data-i18n="f2_p">Google, DuckDuckGo, Bing and Yahoo are supported. The address bar and home search both use the engine you pick.</p></div>
-      <div class="card"><h3 data-i18n="f3_t">Home shortcuts and greeting</h3><p data-i18n="f3_p">Add your favorite sites as home shortcuts, give each one a color, and write your own greeting.</p></div>
-      <div class="card"><h3 data-i18n="f4_t">Local file browsing</h3><p data-i18n="f4_p">Type C: or D: in the address bar to browse drives and folders, and search the files in the current folder as you type.</p></div>
-      <div class="card"><h3 data-i18n="f5_t">PDF and saved pages</h3><p data-i18n="f5_p">Press Ctrl+O to open local PDF, .html or .mhtml files in a tab.</p></div>
-      <div class="card"><h3 data-i18n="f6_t">Ad block and tabs</h3><p data-i18n="f6_p">Ad block can be turned on or off. Tabs shrink as you open more. Ctrl+W closes a tab and Ctrl+R reloads the page.</p></div>
-      <div class="card"><h3 data-i18n="f7_t">Customize Mochi</h3><p data-i18n="f7_p">Click the Mochi robot on the home page to pick a pet and a costume for it.</p></div>
-      <div class="card"><h3 data-i18n="f8_t">Full screen and zoom</h3><p data-i18n="f8_p">Videos and pages that ask for full screen switch automatically. Press Esc or F11 to leave. Ctrl+= and Ctrl+- zoom the page.</p></div>
+      <div class="card" style="--c:var(--mint)"><div class="ico">A</div><h3 data-i18n="f1_t">Dark and light mode</h3><p data-i18n="f1_p">Pick your own accent color. The interface, home page and error pages change together, and tabs can move to the left side.</p></div>
+      <div class="card" style="--c:var(--sky)"><div class="ico">S</div><h3 data-i18n="f2_t">Choose your search engine</h3><p data-i18n="f2_p">Google, DuckDuckGo, Bing and Yahoo are supported. The address bar and home search both use the engine you pick.</p></div>
+      <div class="card" style="--c:var(--pink)"><div class="ico">H</div><h3 data-i18n="f3_t">Home shortcuts and greeting</h3><p data-i18n="f3_p">Add your favorite sites as home shortcuts, give each one a color, and write your own greeting.</p></div>
+      <div class="card" style="--c:var(--sun)"><div class="ico">F</div><h3 data-i18n="f4_t">Local file browsing</h3><p data-i18n="f4_p">Type C: or D: in the address bar to browse drives and folders, and search the files in the current folder as you type.</p></div>
+      <div class="card" style="--c:var(--lilac)"><div class="ico">P</div><h3 data-i18n="f5_t">PDF and saved pages</h3><p data-i18n="f5_p">Press Ctrl+O to open local PDF, .html or .mhtml files in a tab.</p></div>
+      <div class="card" style="--c:var(--peach)"><div class="ico">T</div><h3 data-i18n="f6_t">Ad block and tabs</h3><p data-i18n="f6_p">Ad block can be turned on or off. Tabs shrink as you open more. Ctrl+W closes a tab and Ctrl+R reloads the page.</p></div>
+      <div class="card" style="--c:var(--mint)"><div class="ico">M</div><h3 data-i18n="f7_t">Customize Mochi</h3><p data-i18n="f7_p">Click the Mochi robot on the home page to pick a pet and a costume for it.</p></div>
+      <div class="card" style="--c:var(--sky)"><div class="ico">Z</div><h3 data-i18n="f8_t">Full screen and zoom</h3><p data-i18n="f8_p">Videos and pages that ask for full screen switch automatically. Press Esc or F11 to leave. Ctrl+= and Ctrl+- zoom the page.</p></div>
     </div>
   </div>
 </section>
 
-<section id="game">
-  <div class="wrap game">
+<section id="game" class="game">
+  <div class="wrap">
     <div>
-      <h2>Mochi's Eco City</h2>
-      <p class="sub" style="margin-bottom:14px" data-i18n="game_p">Type the address below in the address bar to open the built-in eco city game. It runs entirely on your computer, so you can play without internet.</p>
+      <span class="kicker" data-i18n="game_kicker">Built-in game</span>
+      <h2 style="font-size:36px;margin:0 0 12px;font-weight:800">Mochi's Eco City</h2>
+      <p style="color:var(--muted);font-size:17px" data-i18n="game_p">Type the address below in the address bar to open the built-in eco city game. It runs entirely on your computer, so you can play without internet.</p>
       <p><code>mochi://Game</code></p>
       <ul>
         <li data-i18n="game_1">Pick up trash and drop it in the right recycling bin.</li>
@@ -191,53 +216,93 @@
       </ul>
     </div>
     <div class="meter" aria-label="Sample values">
-      <div class="row"><small><span data-i18n="m1">City cleanliness</span><span>68%</span></small><div class="bar"><i style="width:68%"></i></div></div>
-      <div class="row"><small><span data-i18n="m2">Green coverage</span><span>45%</span></small><div class="bar"><i style="width:45%"></i></div></div>
-      <div class="row"><small><span data-i18n="m3">River clarity</span><span>72%</span></small><div class="bar"><i style="width:72%"></i></div></div>
+      <div class="row"><small><span data-i18n="m1">City cleanliness</span><span>68%</span></small><div class="bar"><i style="width:68%;background:var(--mint)"></i></div></div>
+      <div class="row"><small><span data-i18n="m2">Green coverage</span><span>45%</span></small><div class="bar"><i style="width:45%;background:var(--sun)"></i></div></div>
+      <div class="row"><small><span data-i18n="m3">River clarity</span><span>72%</span></small><div class="bar"><i style="width:72%;background:var(--sky)"></i></div></div>
       <p class="note" data-i18n="m_note">Sample values. Real progress depends on how you play.</p>
     </div>
   </div>
 </section>
 
-<section id="setup">
+<section id="download" class="download">
   <div class="wrap">
-    <h2 data-i18n="setup_title">Setup steps</h2>
-    <p class="sub" data-i18n="setup_sub">Three steps to install and start using Mochi Browser.</p>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><h3 data-i18n="s1_t">Download the installer</h3><p data-i18n="s1_p">Go to the download page and get the latest MochiBrowser-Setup.exe.</p></div>
-      <div class="step"><div class="n">2</div><h3 data-i18n="s2_t">Run and install</h3><p data-i18n="s2_p">Double-click the installer and follow the steps. You can choose whether to create a desktop shortcut.</p></div>
-      <div class="step"><div class="n">3</div><h3 data-i18n="s3_t">Start customizing</h3><p data-i18n="s3_p">Open Mochi Browser and click the Mochi robot on the home page to get started.</p></div>
+    <div class="dl-hero">
+      <h2 data-i18n="dl_title">Get Mochi Browser for Windows</h2>
+      <p class="sub" data-i18n="dl_sub">Free to download. No account needed.</p>
+      <a class="dl-big" href="https://github.com/mochibrowser/mochibrowser.github.io/releases" data-i18n="dl_btn">Download the installer</a>
+      <p class="dl-meta" data-i18n="dl_meta">MochiBrowser-Setup.exe · Latest release on GitHub</p>
+      <div class="sysreq" data-i18n="req">System requirements: Windows 10 or Windows 11 (64-bit).</div>
     </div>
-
-    <div class="guide">
-      <div class="item">
-        <h4 data-i18n="g1_t">Windows shows “Windows protected your PC”?</h4>
-        <p data-i18n="g1_p">This is a normal SmartScreen warning for new programs. Click “More info”, then “Run anyway”.</p>
-      </div>
-      <div class="item">
-        <h4 data-i18n="g2_t">Uninstall</h4>
-        <p data-i18n="g2_p">Go to Settings → Apps, find Mochi Browser and choose Uninstall.</p>
-      </div>
-    </div>
-    <p class="req" data-i18n="req">System requirements: Windows 10 or Windows 11 (64-bit).</p>
   </div>
 </section>
 
-<section id="download">
+<section id="guide" style="padding-top:20px">
   <div class="wrap">
-    <h2 data-i18n="dl_title">Download Mochi Browser</h2>
-    <p class="sub" data-i18n="dl_sub">Available for Windows. Free to download, no account needed.</p>
-    <p data-i18n="dl_p">Go to the GitHub Releases page to get the latest MochiBrowser-Setup.exe, then double-click it to install.</p>
-    <div class="dl">
-      <a class="btn primary" href="https://github.com/mochibrowser/mochibrowser.github.io/releases" data-i18n="dl_btn">Go to the download page</a>
+    <h2 class="guide-title" data-i18n="guide_title">Download and setup guide</h2>
+    <div class="timeline">
+      <div class="tstep" style="--c:var(--mint)">
+        <div class="num">1</div>
+        <div>
+          <h3 data-i18n="d1_t">Open the download page</h3>
+          <p data-i18n="d1_p">Click “Download the installer” above. It opens the GitHub Releases page, where the newest version is listed first.</p>
+        </div>
+      </div>
+      <div class="tstep" style="--c:var(--sky)">
+        <div class="num">2</div>
+        <div>
+          <h3 data-i18n="d2_t">Download MochiBrowser-Setup.exe</h3>
+          <p data-i18n="d2_p">Under “Assets”, click MochiBrowser-Setup.exe. Save it to your Downloads folder.</p>
+          <div class="tip" data-i18n="d2_tip">Only download from this page or from the official GitHub repository.</div>
+        </div>
+      </div>
+      <div class="tstep" style="--c:var(--pink)">
+        <div class="num">3</div>
+        <div>
+          <h3 data-i18n="d3_t">Run the installer</h3>
+          <p data-i18n="d3_p">Double-click the file. If Windows shows “Windows protected your PC”, click “More info”, then “Run anyway”. This warning appears for new programs and is normal.</p>
+        </div>
+      </div>
+      <div class="tstep" style="--c:var(--sun)">
+        <div class="num">4</div>
+        <div>
+          <h3 data-i18n="d4_t">Choose your options</h3>
+          <ul>
+            <li data-i18n="d4_1">Pick a language: English, 繁體中文, or 日本語.</li>
+            <li data-i18n="d4_2">Keep the default install folder, which is under Program Files. Windows will ask for administrator permission. Click “Yes”.</li>
+            <li data-i18n="d4_3">Tick “Create a desktop shortcut” if you want one.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tstep" style="--c:var(--lilac)">
+        <div class="num">5</div>
+        <div>
+          <h3 data-i18n="d5_t">Finish and launch</h3>
+          <p data-i18n="d5_p">Keep “Launch Mochi Browser” ticked and click Finish. You can also open it later from the Start menu.</p>
+        </div>
+      </div>
+      <div class="tstep" style="--c:var(--peach)">
+        <div class="num">6</div>
+        <div>
+          <h3 data-i18n="d6_t">Make it yours</h3>
+          <ul>
+            <li data-i18n="d6_1">Click the Mochi robot on the home page to choose a pet and a costume.</li>
+            <li data-i18n="d6_2">Open Settings from the three-dot menu to change the theme, search engine and language.</li>
+            <li data-i18n="d6_3">Press Ctrl+O to open a local PDF or saved web page.</li>
+          </ul>
+        </div>
+      </div>
     </div>
+
+    <div class="tip" style="max-width:880px;margin:26px auto 0" data-i18n="d_uninstall">To uninstall, go to Settings → Apps, find Mochi Browser, and choose Uninstall.</div>
   </div>
 </section>
 
 <section id="faq">
   <div class="wrap">
-    <h2 data-i18n="faq_title">Frequently asked questions</h2>
-    <p class="sub" style="margin-bottom:24px">FAQ</p>
+    <div class="head">
+      <span class="kicker">FAQ</span>
+      <h2 data-i18n="faq_title">Frequently asked questions</h2>
+    </div>
     <div class="faq">
       <details><summary data-i18n="q1">Where is my browsing data stored?</summary><p data-i18n="a1">Settings, bookmarks, history and site data are stored in <code>%LOCALAPPDATA%\MochiBrowser</code> on your computer. Nothing is uploaded to a server.</p></details>
       <details><summary data-i18n="q2">Does Mochi Browser collect my data?</summary><p data-i18n="a2">Mochi Browser has no account system and no telemetry. The search engine and websites you use handle your data under their own privacy policies.</p></details>
@@ -262,13 +327,12 @@
 <script>
 var I18N = {
 en: {
-  nav_features:"Features", nav_game:"Eco City", nav_setup:"Setup", nav_download:"Download", nav_faq:"FAQ",
+  nav_features:"Features", nav_game:"Eco City", nav_download:"Download", nav_guide:"Setup guide", nav_faq:"FAQ",
   tag:"Desktop browser for Windows",
-  hero_title:"Your browsing assistant,<br>here to keep you company online.",
+  hero_title:"Your browsing assistant, <span class=\"grad\">full of mochi.</span>",
   hero_lead:"Mochi Browser is a personalizable desktop browser with dark mode, several search engines, local file browsing, and an eco city game you can play offline.",
-  btn_download:"Download Mochi Browser", btn_game:"Play the offline game",
-  mock_greet:"Hi, I'm Mochi, your assistant", mock_placeholder:"Search or enter a keyword", mock_search:"Search",
-  feat_title:"Designed for everyday browsing", feat_sub:"Adjust everything from the look to the search to fit your habits.",
+  btn_download:"Download Mochi Browser", btn_guide:"Read the setup guide", bubble:"Hi, I'm Mochi, your assistant!",
+  feat_kicker:"Features", feat_title:"Designed for everyday browsing", feat_sub:"Adjust everything from the look to the search to fit your habits.",
   f1_t:"Dark and light mode", f1_p:"Pick your own accent color. The interface, home page and error pages change together, and tabs can move to the left side.",
   f2_t:"Choose your search engine", f2_p:"Google, DuckDuckGo, Bing and Yahoo are supported. The address bar and home search both use the engine you pick.",
   f3_t:"Home shortcuts and greeting", f3_p:"Add your favorite sites as home shortcuts, give each one a color, and write your own greeting.",
@@ -277,19 +341,20 @@ en: {
   f6_t:"Ad block and tabs", f6_p:"Ad block can be turned on or off. Tabs shrink as you open more. Ctrl+W closes a tab and Ctrl+R reloads the page.",
   f7_t:"Customize Mochi", f7_p:"Click the Mochi robot on the home page to pick a pet and a costume for it.",
   f8_t:"Full screen and zoom", f8_p:"Videos and pages that ask for full screen switch automatically. Press Esc or F11 to leave. Ctrl+= and Ctrl+- zoom the page.",
-  game_p:"Type the address below in the address bar to open the built-in eco city game. It runs entirely on your computer, so you can play without internet.",
+  game_kicker:"Built-in game", game_p:"Type the address below in the address bar to open the built-in eco city game. It runs entirely on your computer, so you can play without internet.",
   game_1:"Pick up trash and drop it in the right recycling bin.", game_2:"Plant trees with green energy and watch the city turn green.", game_3:"Complete missions and see the river run clearer and the air get cleaner.",
   m1:"City cleanliness", m2:"Green coverage", m3:"River clarity", m_note:"Sample values. Real progress depends on how you play.",
-  setup_title:"Setup steps", setup_sub:"Three steps to install and start using Mochi Browser.",
-  s1_t:"Download the installer", s1_p:"Go to the download page and get the latest MochiBrowser-Setup.exe.",
-  s2_t:"Run and install", s2_p:"Double-click the installer and follow the steps. You can choose whether to create a desktop shortcut.",
-  s3_t:"Start customizing", s3_p:"Open Mochi Browser and click the Mochi robot on the home page to get started.",
-  g1_t:"Windows shows “Windows protected your PC”?", g1_p:"This is a normal SmartScreen warning for new programs. Click “More info”, then “Run anyway”.",
-  g2_t:"Uninstall", g2_p:"Go to Settings → Apps, find Mochi Browser and choose Uninstall.",
+  dl_kicker:"Download", dl_title:"Get Mochi Browser for Windows", dl_sub:"Free to download. No account needed.",
+  dl_btn:"Download the installer", dl_meta:"MochiBrowser-Setup.exe · Latest release on GitHub",
   req:"System requirements: Windows 10 or Windows 11 (64-bit).",
-  dl_title:"Download Mochi Browser", dl_sub:"Available for Windows. Free to download, no account needed.",
-  dl_p:"Go to the GitHub Releases page to get the latest MochiBrowser-Setup.exe, then double-click it to install.",
-  dl_btn:"Go to the download page",
+  guide_title:"Download and setup guide",
+  d1_t:"Open the download page", d1_p:"Click “Download the installer” above. It opens the GitHub Releases page, where the newest version is listed first.",
+  d2_t:"Download MochiBrowser-Setup.exe", d2_p:"Under “Assets”, click MochiBrowser-Setup.exe. Save it to your Downloads folder.", d2_tip:"Only download from this page or from the official GitHub repository.",
+  d3_t:"Run the installer", d3_p:"Double-click the file. If Windows shows “Windows protected your PC”, click “More info”, then “Run anyway”. This warning appears for new programs and is normal.",
+  d4_t:"Choose your options", d4_1:"Pick a language: English, 繁體中文, or 日本語.", d4_2:"Keep the default install folder, which is under Program Files. Windows will ask for administrator permission. Click “Yes”.", d4_3:"Tick “Create a desktop shortcut” if you want one.",
+  d5_t:"Finish and launch", d5_p:"Keep “Launch Mochi Browser” ticked and click Finish. You can also open it later from the Start menu.",
+  d6_t:"Make it yours", d6_1:"Click the Mochi robot on the home page to choose a pet and a costume.", d6_2:"Open Settings from the three-dot menu to change the theme, search engine and language.", d6_3:"Press Ctrl+O to open a local PDF or saved web page.",
+  d_uninstall:"To uninstall, go to Settings → Apps, find Mochi Browser, and choose Uninstall.",
   faq_title:"Frequently asked questions",
   q1:"Where is my browsing data stored?", a1:"Settings, bookmarks, history and site data are stored in <code>%LOCALAPPDATA%\\MochiBrowser</code> on your computer. Nothing is uploaded to a server.",
   q2:"Does Mochi Browser collect my data?", a2:"Mochi Browser has no account system and no telemetry. The search engine and websites you use handle your data under their own privacy policies.",
@@ -299,13 +364,12 @@ en: {
   footer:"© Mochi Browser · Your browsing assistant", report:"Report an issue"
 },
 zh: {
-  nav_features:"功能", nav_game:"遊戲", nav_setup:"安裝步驟", nav_download:"下載", nav_faq:"常見問題",
+  nav_features:"功能", nav_game:"遊戲", nav_download:"下載", nav_guide:"安裝教學", nav_faq:"常見問題",
   tag:"Windows 桌面瀏覽器",
-  hero_title:"你的瀏覽助手，<br>會陪你一起逛網頁。",
+  hero_title:"你的瀏覽助手，<span class=\"grad\">充滿麻糬。</span>",
   hero_lead:"Mochi Browser 是一款可個人化的桌面瀏覽器，支援深色模式、多種搜尋引擎與本機檔案瀏覽，還內建可離線遊玩的環保城市遊戲。",
-  btn_download:"下載 Mochi Browser", btn_game:"了解離線遊戲",
-  mock_greet:"嗨，我是你的助手 Mochi", mock_placeholder:"搜尋或輸入關鍵字", mock_search:"搜尋",
-  feat_title:"為日常瀏覽而設計", feat_sub:"從外觀到搜尋，每個細節都可以依照你的習慣調整。",
+  btn_download:"下載 Mochi Browser", btn_guide:"閱讀安裝教學", bubble:"嗨，我是你的助手 Mochi！",
+  feat_kicker:"功能", feat_title:"為日常瀏覽而設計", feat_sub:"從外觀到搜尋，每個細節都可以依照你的習慣調整。",
   f1_t:"深色與淺色模式", f1_p:"自訂主題色，介面、首頁與錯誤頁會一起變換，還可以把分頁移到左側直排。",
   f2_t:"搜尋引擎任你選", f2_p:"支援 Google、DuckDuckGo、Bing 與 Yahoo，網址列與首頁搜尋都會使用你選擇的引擎。",
   f3_t:"首頁捷徑與問候語", f3_p:"常用網站可以設成首頁捷徑，每個捷徑都能設定顏色，問候語也能自己改寫。",
@@ -314,19 +378,20 @@ zh: {
   f6_t:"廣告攔截與分頁", f6_p:"廣告攔截可以開關。分頁多時會自動縮窄，Ctrl+W 關閉分頁、Ctrl+R 重新載入。",
   f7_t:"自訂 Mochi", f7_p:"點擊首頁的 Mochi 機器人，就能替它挑選寵物與服裝。",
   f8_t:"全螢幕與縮放", f8_p:"影片與網頁要求全螢幕時會自動進入，按 Esc 或 F11 離開；Ctrl+= 與 Ctrl+- 可以隨時縮放頁面。",
-  game_p:"在網址列輸入下面的網址，就能開啟內建的環保城市遊戲。遊戲完全在本機運作，沒有網路也能玩。",
+  game_kicker:"內建遊戲", game_p:"在網址列輸入下面的網址，就能開啟內建的環保城市遊戲。遊戲完全在本機運作，沒有網路也能玩。",
   game_1:"撿起垃圾，並投入正確的回收桶。", game_2:"用綠色能量種樹，讓城市慢慢變綠。", game_3:"完成任務，看見河水變清、空氣變好。",
   m1:"城市清潔度", m2:"綠化率", m3:"河流清澈度", m_note:"示意數值，實際進度依遊戲內容而定。",
-  setup_title:"安裝步驟", setup_sub:"三個步驟完成安裝並開始使用。",
-  s1_t:"下載安裝程式", s1_p:"前往下載頁面，取得最新版的 MochiBrowser-Setup.exe。",
-  s2_t:"執行並安裝", s2_p:"雙擊安裝程式，依畫面指示完成安裝。可選擇是否建立桌面捷徑。",
-  s3_t:"開始個人化", s3_p:"開啟 Mochi Browser，點擊首頁的 Mochi 機器人即可開始。",
-  g1_t:"Windows 出現「已保護您的電腦」提示？", g1_p:"這是 Windows SmartScreen 對新程式的常見提醒。點選「其他資訊」，再點「仍要執行」即可。",
-  g2_t:"解除安裝", g2_p:"到「設定 → 應用程式」找到 Mochi Browser，點選「解除安裝」。",
+  dl_kicker:"下載", dl_title:"下載 Windows 版 Mochi Browser", dl_sub:"免費下載，不需要帳號。",
+  dl_btn:"下載安裝程式", dl_meta:"MochiBrowser-Setup.exe · GitHub 最新版本",
   req:"系統需求：Windows 10 或 Windows 11（64 位元）。",
-  dl_title:"下載 Mochi Browser", dl_sub:"目前提供 Windows 版本。免費下載，不需要帳號。",
-  dl_p:"前往 GitHub Releases 頁面下載最新版的 MochiBrowser-Setup.exe，雙擊執行即可。",
-  dl_btn:"前往下載頁面",
+  guide_title:"下載與安裝教學",
+  d1_t:"前往下載頁面", d1_p:"點擊上方的「下載安裝程式」，會開啟 GitHub Releases 頁面，最新版本會列在最上面。",
+  d2_t:"下載 MochiBrowser-Setup.exe", d2_p:"在「Assets」下方點擊 MochiBrowser-Setup.exe，儲存到你的「下載」資料夾。", d2_tip:"請從本頁或官方 GitHub 專案下載。",
+  d3_t:"執行安裝程式", d3_p:"雙擊檔案。若 Windows 出現「已保護您的電腦」，請點選「其他資訊」，再點「仍要執行」。這是新程式的常見提醒，屬正常現象。",
+  d4_t:"選擇安裝選項", d4_1:"選擇語言：English、繁體中文或日本語。", d4_2:"預設安裝路徑在 Program Files 底下，Windows 會要求系統管理員權限，請點「是」。", d4_3:"如果需要，可勾選「建立桌面捷徑」。",
+  d5_t:"完成並啟動", d5_p:"保留「啟動 Mochi Browser」的勾選，點選「完成」。之後也可以從開始功能表開啟。",
+  d6_t:"開始個人化", d6_1:"點擊首頁的 Mochi 機器人，挑選寵物與服裝。", d6_2:"從三點選單開啟設定，可以更改主題、搜尋引擎與語言。", d6_3:"按 Ctrl+O 開啟本機的 PDF 或已儲存的網頁。",
+  d_uninstall:"要解除安裝，請到「設定 → 應用程式」找到 Mochi Browser，點選「解除安裝」。",
   faq_title:"常見問題",
   q1:"我的瀏覽資料存在哪裡？", a1:"所有設定、書籤、歷史紀錄與網站資料都存在你電腦上的 <code>%LOCALAPPDATA%\\MochiBrowser</code>，不會上傳到任何伺服器。",
   q2:"Mochi Browser 會收集我的資料嗎？", a2:"Mochi Browser 本身沒有帳號系統，也不包含遙測功能。你使用的搜尋引擎與你造訪的網站，會依照其各自的隱私政策處理資料。",
@@ -336,13 +401,12 @@ zh: {
   footer:"© Mochi Browser · 你的瀏覽助手", report:"回報問題"
 },
 ja: {
-  nav_features:"機能", nav_game:"ゲーム", nav_setup:"セットアップ", nav_download:"ダウンロード", nav_faq:"よくある質問",
+  nav_features:"機能", nav_game:"ゲーム", nav_download:"ダウンロード", nav_guide:"セットアップ", nav_faq:"よくある質問",
   tag:"Windows 向けデスクトップブラウザー",
-  hero_title:"あなたのブラウジングアシスタント。<br>ネットの旅に、いつでも一緒。",
+  hero_title:"あなたのブラウジングアシスタント。<span class=\"grad\">もちがいっぱい。</span>",
   hero_lead:"Mochi Browser は、ダークモード、複数の検索エンジン、ローカルファイルの閲覧に対応し、オフラインで遊べるエコシティゲームも内蔵した、カスタマイズ可能なデスクトップブラウザーです。",
-  btn_download:"Mochi Browser をダウンロード", btn_game:"オフラインゲームを見る",
-  mock_greet:"こんにちは、アシスタントの Mochi です", mock_placeholder:"検索またはキーワードを入力", mock_search:"検索",
-  feat_title:"毎日のブラウジングのために", feat_sub:"外観から検索まで、お好みに合わせて調整できます。",
+  btn_download:"Mochi Browser をダウンロード", btn_guide:"セットアップ手順を見る", bubble:"こんにちは、アシスタントの Mochi です！",
+  feat_kicker:"機能", feat_title:"毎日のブラウジングのために", feat_sub:"外観から検索まで、お好みに合わせて調整できます。",
   f1_t:"ダークモードとライトモード", f1_p:"アクセントカラーを選べます。インターフェース、ホームページ、エラーページがいっしょに切り替わり、タブを左側に縦並びにすることもできます。",
   f2_t:"検索エンジンを選択", f2_p:"Google、DuckDuckGo、Bing、Yahoo に対応。アドレスバーとホームの検索で、選んだエンジンが使われます。",
   f3_t:"ホームのショートカットとあいさつ", f3_p:"よく使うサイトをホームのショートカットに登録でき、色を設定したり、あいさつ文を自由に書き換えたりできます。",
@@ -351,19 +415,20 @@ ja: {
   f6_t:"広告ブロックとタブ", f6_p:"広告ブロックはオン・オフを切り替えられます。タブが増えると自動的に幅が狭くなります。Ctrl+W でタブを閉じ、Ctrl+R で再読み込みします。",
   f7_t:"Mochi のカスタマイズ", f7_p:"ホームの Mochi ロボットをクリックして、ペットや衣装を選べます。",
   f8_t:"全画面表示とズーム", f8_p:"動画やページが全画面表示を求めると自動で切り替わります。Esc か F11 で戻れます。Ctrl+= と Ctrl+- でページを拡大・縮小できます。",
-  game_p:"アドレスバーに下のアドレスを入力すると、内蔵のエコシティゲームが開きます。すべてパソコン上で動くので、インターネットがなくても遊べます。",
+  game_kicker:"内蔵ゲーム", game_p:"アドレスバーに下のアドレスを入力すると、内蔵のエコシティゲームが開きます。すべてパソコン上で動くので、インターネットがなくても遊べます。",
   game_1:"ゴミを拾って、正しいリサイクルボックスに入れましょう。", game_2:"グリーンエネルギーで木を植えて、街を少しずつ緑にしましょう。", game_3:"ミッションを達成して、川がきれいになり空気が澄んでいく様子を見てみましょう。",
   m1:"街のきれいさ", m2:"緑化率", m3:"川の透明度", m_note:"表示は例です。実際の進み具合はプレイ内容によって変わります。",
-  setup_title:"セットアップ手順", setup_sub:"3 つのステップでインストールして使い始められます。",
-  s1_t:"インストーラーをダウンロード", s1_p:"ダウンロードページで、最新の MochiBrowser-Setup.exe を入手します。",
-  s2_t:"実行してインストール", s2_p:"インストーラーをダブルクリックし、画面の指示に従います。デスクトップのショートカットを作るかどうかも選べます。",
-  s3_t:"カスタマイズを始める", s3_p:"Mochi Browser を開き、ホームの Mochi ロボットをクリックして始めましょう。",
-  g1_t:"「Windows によって PC が保護されました」と表示される場合", g1_p:"新しいプログラムに対する SmartScreen の通常の警告です。「詳細情報」をクリックし、「実行」を選んでください。",
-  g2_t:"アンインストール", g2_p:"「設定 → アプリ」で Mochi Browser を探し、「アンインストール」を選びます。",
+  dl_kicker:"ダウンロード", dl_title:"Windows 版 Mochi Browser を入手", dl_sub:"無料で、アカウントは不要です。",
+  dl_btn:"インストーラーをダウンロード", dl_meta:"MochiBrowser-Setup.exe · GitHub の最新リリース",
   req:"動作環境：Windows 10 または Windows 11（64 ビット）。",
-  dl_title:"Mochi Browser をダウンロード", dl_sub:"Windows 版を提供しています。無料で、アカウントは不要です。",
-  dl_p:"GitHub Releases のページで最新の MochiBrowser-Setup.exe を入手し、ダブルクリックしてインストールしてください。",
-  dl_btn:"ダウンロードページへ",
+  guide_title:"ダウンロードとセットアップ手順",
+  d1_t:"ダウンロードページを開く", d1_p:"上の「インストーラーをダウンロード」をクリックします。GitHub Releases が開き、最新版が一番上に表示されます。",
+  d2_t:"MochiBrowser-Setup.exe をダウンロード", d2_p:"「Assets」の下にある MochiBrowser-Setup.exe をクリックし、ダウンロードフォルダーに保存します。", d2_tip:"ダウンロードは、このページまたは公式の GitHub リポジトリからのみ行ってください。",
+  d3_t:"インストーラーを実行", d3_p:"ファイルをダブルクリックします。「Windows によって PC が保護されました」と表示されたら、「詳細情報」をクリックし、「実行」を選んでください。新しいプログラムでは一般的な警告です。",
+  d4_t:"オプションを選ぶ", d4_1:"言語を選びます：English、繁體中文、日本語。", d4_2:"既定のインストール先は Program Files の下です。Windows が管理者権限を求めるので「はい」をクリックしてください。", d4_3:"必要ならデスクトップのショートカットを作成にチェックを入れます。",
+  d5_t:"完了して起動", d5_p:"「Mochi Browser を起動」にチェックを入れたまま「完了」をクリックします。後からスタートメニューから開くこともできます。",
+  d6_t:"自分好みにカスタマイズ", d6_1:"ホームの Mochi ロボットをクリックして、ペットや衣装を選びましょう。", d6_2:"三点メニューから設定を開き、テーマ、検索エンジン、言語を変更できます。", d6_3:"Ctrl+O で、ローカルの PDF や保存したウェブページを開けます。",
+  d_uninstall:"アンインストールするには、「設定 → アプリ」で Mochi Browser を探し、「アンインストール」を選んでください。",
   faq_title:"よくある質問",
   q1:"閲覧データはどこに保存されますか？", a1:"設定、ブックマーク、履歴、サイトのデータは、お使いのパソコンの <code>%LOCALAPPDATA%\\MochiBrowser</code> に保存されます。サーバーにアップロードされることはありません。",
   q2:"Mochi Browser はデータを収集しますか？", a2:"Mochi Browser にはアカウント機能もテレメトリーもありません。使用する検索エンジンやサイトのデータは、それぞれのプライバシーポリシーに従って扱われます。",
@@ -385,13 +450,12 @@ function setLang(lang){
     var k = el.getAttribute('data-i18n-html');
     if (d[k] !== undefined) el.innerHTML = d[k];
   });
-  document.querySelectorAll('.lang button').forEach(function(b){
-    b.classList.toggle('on', b.dataset.lang === lang);
-  });
+  var sel = document.getElementById('lang-select');
+  if (sel) sel.value = lang;
   try { localStorage.setItem('mochi-site-lang', lang); } catch(e) {}
 }
-document.querySelectorAll('.lang button').forEach(function(b){
-  b.addEventListener('click', function(){ setLang(b.dataset.lang); });
+document.getElementById('lang-select').addEventListener('change', function(e){
+  setLang(e.target.value);
 });
 var saved = null;
 try { saved = localStorage.getItem('mochi-site-lang'); } catch(e) {}
